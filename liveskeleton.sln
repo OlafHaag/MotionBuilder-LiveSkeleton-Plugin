@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liveskeleton", "liveskeleton.vcxproj", "{69229377-BBEF-45EC-ADE6-A512E27FEA21}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69229377-BBEF-45EC-ADE6-A512E27FEA21}.Debug|x64.ActiveCfg = Debug|x64
+		{69229377-BBEF-45EC-ADE6-A512E27FEA21}.Debug|x64.Build.0 = Debug|x64
+		{69229377-BBEF-45EC-ADE6-A512E27FEA21}.Release|x64.ActiveCfg = Release|x64
+		{69229377-BBEF-45EC-ADE6-A512E27FEA21}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD2DE322-F44D-4BCB-863E-0D8CBE2216C3}
+	EndGlobalSection
+EndGlobal
