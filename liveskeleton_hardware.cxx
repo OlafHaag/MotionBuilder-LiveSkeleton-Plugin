@@ -83,7 +83,7 @@ bool ThriftProxy::IsOpen()
 LiveSkeletonHardware::LiveSkeletonHardware() :
 	mNetworkPort( 9090 )
 {
-	mNetworkAddress	= "192.168.1.232";
+	mNetworkAddress	= "127.0.0.1";
 	mChannel.reserve(20);  // Reserve memory up to 20 joints.
 }
 

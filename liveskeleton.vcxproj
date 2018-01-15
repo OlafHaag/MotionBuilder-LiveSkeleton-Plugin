@@ -174,7 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="LiveSkeleton.thrift" />
-    <None Include="MarkerInterface.thrift" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
