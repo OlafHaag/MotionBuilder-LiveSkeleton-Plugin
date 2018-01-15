@@ -7,6 +7,7 @@ from numpy import array, dot
 
 """
 A word on this:
+ - found on https://github.com/tekulvw/bvh-converter
 
  - The vast majority of this code (specifically the algorithm) was written for
     BVHPlayer found on https://sites.google.com/a/cgspeed.com/cgspeed/bvhplay
