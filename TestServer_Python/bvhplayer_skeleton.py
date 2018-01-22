@@ -118,7 +118,7 @@ class Joint:
 #   dt: delta-t in seconds per frame (default: 30fps i.e. 1/30)
 class Skeleton:
 
-    def __init__(self, hips, keyframes, frames=0, dt=.033333333):
+    def __init__(self, hips, keyframes, frames=0, dt=.033333333, ignore_root_offset=True):
         self.root = hips
         # 9/1/08: we now transfer the large bvh.keyframes data structure to
         # the skeleton because we need to keep this dataset around.
@@ -146,10 +146,15 @@ class Skeleton:
         self.maxx = -999999999999
         self.maxy = -999999999999
         self.maxz = -999999999999
-        # We can't just look at the keyframe values, we also have to correct
-        # by the static hips OFFSET value, since sometimes this can be quite
-        # large.  I feel it's bad BVH file form to have a non-zero HIPS offset
-        # position, but there are definitely files that do this.
+        # We will ignore the static hips OFFSET value, since in my case
+        # it will not reproduce the correct values for world positions.
+        # I feel it's bad BVH file form to have a non-zero HIPS offset
+        # position, but there are definitely files that do this (e.g. MotionBuilder BVH Export).
+        if ignore_root_offset:
+            self.root.strans[0] = 0.0
+            self.root.strans[1] = 0.0
+            self.root.strans[2] = 0.0
+            self.root.stransmat = IDENTITY
         xcorrect = self.root.strans[0]
         ycorrect = self.root.strans[1]
         zcorrect = self.root.strans[2]
@@ -197,7 +202,8 @@ class Skeleton:
     def get_frames_worldpos(self, n=None):
         """Returns a list of frames, first item in list will be a header
         :param n: If not None, returns specified frame (with header).
-        :type n: int"""
+        :type n: int
+        """
         joints = self.joint_dfs(self.root)
 
         frame_data = []
