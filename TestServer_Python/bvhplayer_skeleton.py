@@ -76,7 +76,7 @@ class Joint:
         """
         print("Joint name:", self.name)
         print(" %s is connected to " % self.name,)
-        if(len(self.children) == 0):
+        if len(self.children) == 0:
             print("nothing")
         else:
             for child in self.children:
@@ -88,9 +88,9 @@ class Joint:
     def __str__(self):  # Recursively build up text info
         str2 = self.name + " at strans=" + \
             str(self.strans) + " is connected to "
-# Not sure how well self.strans will work now that self.strans is
-# a numpy "array", no longer a cgkit vec3.
-        if(len(self.children) == 0):
+        # Not sure how well self.strans will work now that self.strans is
+        # a numpy "array", no longer a cgkit vec3.
+        if len(self.children) == 0:
             str2 = str2 + "nothing\n"
         else:
             for child in self.children:
@@ -100,7 +100,7 @@ class Joint:
         for child in self.children:
             str3 = str3 + child.__str__()
         str1 = str2 + str3
-        return (str1)
+        return str1
 
     def addchild(self, childjoint):
         self.children.append(childjoint)
@@ -120,24 +120,24 @@ class Skeleton:
 
     def __init__(self, hips, keyframes, frames=0, dt=.033333333):
         self.root = hips
-# 9/1/08: we now transfer the large bvh.keyframes data structure to
-# the skeleton because we need to keep this dataset around.
+        # 9/1/08: we now transfer the large bvh.keyframes data structure to
+        # the skeleton because we need to keep this dataset around.
         self.keyframes = keyframes
         self.frames = frames  # Number of frames (caller must set correctly)
         self.dt = dt
-# self.edges = []  # List of list of edges.  self.edges[time][edge#]
+        # self.edges = []  # List of list of edges.  self.edges[time][edge#]
         self.edges = {}  # As of 9/1/08 this now runs from 1...N not 0...N-1
 
-# Precompute hips min and max values in all 3 dimensions.
-# First determine how far into a keyframe we need to look to find the
-# XYZ hip positions
+        # Precompute hips min and max values in all 3 dimensions.
+        # First determine how far into a keyframe we need to look to find the
+        # XYZ hip positions
         offset = 0
         for channel in self.root.channels:
-            if(channel == "Xposition"):
+            if channel == "Xposition":
                 xoffset = offset
-            if(channel == "Yposition"):
+            if channel == "Yposition":
                 yoffset = offset
-            if(channel == "Zposition"):
+            if channel == "Zposition":
                 zoffset = offset
             offset += 1
         self.minx = 999999999999
@@ -146,10 +146,10 @@ class Skeleton:
         self.maxx = -999999999999
         self.maxy = -999999999999
         self.maxz = -999999999999
-# We can't just look at the keyframe values, we also have to correct
-# by the static hips OFFSET value, since sometimes this can be quite
-# large.  I feel it's bad BVH file form to have a non-zero HIPS offset
-# position, but there are definitely files that do this.
+        # We can't just look at the keyframe values, we also have to correct
+        # by the static hips OFFSET value, since sometimes this can be quite
+        # large.  I feel it's bad BVH file form to have a non-zero HIPS offset
+        # position, but there are definitely files that do this.
         xcorrect = self.root.strans[0]
         ycorrect = self.root.strans[1]
         zcorrect = self.root.strans[2]
@@ -287,7 +287,7 @@ class Skeleton:
         :return: Dictionary of {j.name: j.parent, j.strans, j.rot, type, children}
         """
         joints = self.joint_dfs(self.root)
-        joints_dict= {}
+        joints_dict = {}
 
         for j in joints:
             if not j.hasparent:
@@ -584,26 +584,25 @@ def process_bvhfile(filename, DEBUG=0):
     #  raise SyntaxError, "Syntax error in line %d: 'HIERARCHY' expected, \
     #    got '%s' instead"%(self.linenr, tok)
 
-    # Here's some information about the two mybvh calls:
+    # Here's some information about the two my_bvh calls:
     #
-    # mybvh.read() returns a readbvh instance:
+    # my_bvh.read() returns a readbvh instance:
     #  retval from readbvh() is  <skeleton.readbvh instance at 0x176dcb0>
     # So this isn't useful for error-checking.
     #
-    # mybvh.read() returns None on success and throws an exception on failure.
+    # my_bvh.read() returns None on success and throws an exception on failure.
 
     print("Reading BVH file...",)
-    mybvh = ReadBVH(filename)  # Doesn't actually read the file, just creates
+    my_bvh = ReadBVH(filename)  # Doesn't actually read the file, just creates
     # a readbvh object and sets up the file for
     # reading in the next line.
-    mybvh.read()  # Reads and parses the file.
+    my_bvh.read()  # Reads and parses the file.
 
-    hips = process_bvhnode(mybvh.root)  # Create joint hierarchy
+    hips = process_bvhnode(my_bvh.root)  # Create joint hierarchy
     print("done")
 
     print("Building skeleton...",)
-    myskeleton = Skeleton(hips, keyframes=mybvh.keyframes,
-                          frames=mybvh.frames, dt=mybvh.dt)
+    myskeleton = Skeleton(hips, keyframes=my_bvh.keyframes, frames=my_bvh.frames, dt=my_bvh.dt)
     print("done")
     if DEBUG:
         print("skeleton is: ", myskeleton)

@@ -141,7 +141,7 @@ class BvhReader(object):
                                   "expected, got %d instead"
                                   % (self._line_num, self.num_channels,
                                      len(a)))
-            values = map(lambda x: float(x), a)
+            values = list(map(lambda x: float(x), a))  # In Python 3 map returns map-object, not a list. Can't slice.
             self.on_frame(values)
 
     def read_hierarchy(self):
