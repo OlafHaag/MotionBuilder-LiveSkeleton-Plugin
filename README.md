@@ -8,7 +8,8 @@ At the time of creation of this plugin I was learning about the MotionBuilder AP
 I turned to a RPC (Remote procedure call) framework, because I'm neither an expert in network-programming, nor in C++ programming. I chose thrift, because of its cross-language capabilities, because it can be compiled with VS2012 and because of its license.
 
 ## Requirements
-- Visual Studio 2012 or its v110 toolset
+- up to MotionBuilder2018: Visual Studio 2012 or its v110 toolset
+- since MotionBuilder2019: Visual Studio 2015 Update 3
 - thrift libraries and its IDL compiler
 - boost libraries
 - some environment variables for use with the provided VS project:
